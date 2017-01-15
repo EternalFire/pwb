@@ -7,6 +7,7 @@ var
   contentCache, // 内容缓存
 
   wrapCreateID,
+  copyContent,
 
   create,
   retrieve,
@@ -17,6 +18,14 @@ var
 
   wrapCreateID = () => { 
     return idUtil.create();
+  };
+
+  copyContent = (content) => {
+    var result = {};
+    for (var key in content) {
+      result[key] = content[key];
+    }
+    return result;
   };
 
   // 创建内容
@@ -37,7 +46,9 @@ var
 
     if (!param) {
       // console.log(contentCache);
-      return contentCache;
+      return contentCache.map((e) => { 
+        return copyContent(e); 
+      });
     }
 
     if (param.id) {
@@ -69,9 +80,9 @@ var
 
       contentCache.forEach((e, i) => {
         if (e.id === param.id) {
-          contentCache[i].title   = contentCache[i].title   || param.title;
-          contentCache[i].tag     = contentCache[i].tag     || param.tag;
-          contentCache[i].content = contentCache[i].content || param.content;
+          contentCache[i].title   = param.title   || contentCache[i].title;
+          contentCache[i].tag     = param.tag     || contentCache[i].tag || '';
+          contentCache[i].content = param.content || contentCache[i].content;
 
           result = contentCache[i];
         }
@@ -101,6 +112,7 @@ var
       }
 
       console.log('del fail with id ', param.id);
+      return false;
     }
 
     console.log('del param without id');

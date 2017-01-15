@@ -34,8 +34,8 @@ var
   };
 
   randomNumber = () => {
-    // return Math.floor(Math.random() * (Number.MAX_VALUE % 1000000));
-    return id++;
+    return Math.floor(Math.random() * (Number.MAX_VALUE % 1000000));
+    // return id++;
   };
 
   id = randomNumber();
