@@ -1,7 +1,34 @@
 
-(function(){
+import Button from './Button'
 
-  var IDSectionMain = $('#IDSectionMain');
+// (function($){
+
+  // const buttonStyles = {
+  //   // border: '1px solid #eee',
+  //   // borderRadius: 3,
+  //   // backgroundColor: '#FFFFFF',
+  //   // cursor: 'pointer',
+  //   // fontSize: 15,
+  //   // padding: '3px 10px',
+  //   // margin: 10,
+  // };
+
+  // const Button = ({ children, onClick }) => (
+  //   <button
+  //     style={buttonStyles}
+  //     onClick={onClick}
+  //   >
+  //     {children}
+  //   </button>
+  // );
+  // Button.propTypes = {
+  //   children: React.PropTypes.string.isRequired,
+  //   onClick: React.PropTypes.func,
+  // };
+
+
+  var IDSectionMain = document.getElementById('IDSectionMain'); //$('#IDSectionMain');
+  console.log(IDSectionMain);
 
   const initialState = {
     title: "",
@@ -40,7 +67,7 @@
     }
 
     handleClickFinish(event) {
-      IDSectionMain.append($(`<p>title: ${this.state.title}|tag: ${this.state.tag}|content: ${this.state.content}</p>`))
+      // IDSectionMain.append($(`<p>title: ${this.state.title}|tag: ${this.state.tag}|content: ${this.state.content}</p>`))
     }
 
     handleReset() {
@@ -60,13 +87,19 @@
               <input type="button" value="重 置" onClick={() => this.handleReset() }/>
             </div>
           </fieldset>
+
         </div>
       );
     }
   }
 
+
   ReactDOM.render(
-    <InputPanel></InputPanel>,
-    IDSectionMain[0]
+    <div>
+    <InputPanel></InputPanel>
+    <Button>sdfsdfs</Button>
+    </div>,
+    IDSectionMain
   );
-}());
+
+// }(jQuery));
