@@ -1,21 +1,25 @@
-$(function(){
-  
+
+(function(){
+
   var IDSectionMain = $('#IDSectionMain');
 
-  var InputPanel = React.createClass({
-    getInitialState: function() {
-      return {
-        title: "",
-        tag: "",
-        content: "",
-      };
-    },
+  const initialState = {
+    title: "",
+    tag: "",
+    content: ""
+  };
 
-    componentDidMount: function() {
+  class InputPanel extends React.Component {
+    constructor() {
+      super();
 
-    },
+      this.state = initialState;
+    }
 
-    handleChange: function(event) {
+    componentDidMount() {
+    }
+
+    handleChange(event) {
       var 
         targetID = event.target.id, 
         value = event.target.value;
@@ -33,29 +37,36 @@ $(function(){
         default:
           break;
       }
-    },
+    }
 
-    handleClickFinish: function(event) {
+    handleClickFinish(event) {
       IDSectionMain.append($(`<p>title: ${this.state.title}|tag: ${this.state.tag}|content: ${this.state.content}</p>`))
-    },
+    }
 
-    render: function() {
+    handleReset() {
+      this.setState(initialState);
+    }
+
+    render() {
 
       return (
         <div>
           <fieldset>
-            <div><label>标 题<input id="IDTitle" type="text" onChange={this.handleChange}/></label></div>
-            <div><label>标 签<input id="IDTag" type="text" onChange={this.handleChange}/></label></div>
-            <div><label>密 码<input id="IDContent" type="password" onChange={this.handleChange}/></label></div>
-            <div><input type="button" value="完 成" onClick={this.handleClickFinish} /><input type="button" value="重 置" /></div>
+            <div><label>标 题<input id="IDTitle" type="text" value={this.state.title} onChange={(e) => this.handleChange(e)} /></label></div>
+            <div><label>标 签<input id="IDTag" type="text" value={this.state.tag} onChange={(e) => this.handleChange(e)} /></label></div>
+            <div><label>密 码<input id="IDContent" type="password" value={this.state.content} onChange={(e) => this.handleChange(e)} /></label></div>
+            <div>
+              <input type="button" value="完 成" onClick={(e) => this.handleClickFinish(e) } />
+              <input type="button" value="重 置" onClick={() => this.handleReset() }/>
+            </div>
           </fieldset>
         </div>
       );
     }
-  });
+  }
 
   ReactDOM.render(
     <InputPanel></InputPanel>,
     IDSectionMain[0]
   );
-});
+}());
