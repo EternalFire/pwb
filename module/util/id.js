@@ -10,7 +10,7 @@ var
   randomNumber
   ;
 
-  id = 0; // 初始ID
+  id = 1; // 初始ID
   usedID = {};
 
   // 导入已存在的ID
@@ -34,8 +34,8 @@ var
   };
 
   randomNumber = () => {
-    return Math.floor(Math.random() * (Number.MAX_VALUE % 1000000));
-    // return id++;
+    // return Math.floor(Math.random() * (Number.MAX_VALUE % 1000000));
+    return id++;
   };
 
   id = randomNumber();
