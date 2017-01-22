@@ -19,8 +19,9 @@ body {
   margin-right: 10px;
 }
 
-th {
-  text-align: center;
+th,td {
+  text-align: center;  
+  width: 18%;
 }
 
 .ghost {
@@ -29,4 +30,8 @@ th {
 }
 .ghost:hover {
   opacity: 1.0;
+}
+
+td input {
+  width: 95%;
 }
