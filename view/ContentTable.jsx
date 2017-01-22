@@ -2,7 +2,6 @@
 import ContentRow from 'ContentRow'
 import ContentInput from 'ContentInput'
 
-
 class ContentTable extends React.Component {
 
   constructor(props, context) {
@@ -13,14 +12,14 @@ class ContentTable extends React.Component {
     };
   }
 
-  componentDidUpdate() {
-
-  }
+  componentDidUpdate() {}
 
   renderTitle() {
+    // console.log('renderTitle()');
+
     return (
       <tr className="info">
-        <th>#</th>
+        <th>ID</th>
         <th>标题</th>
         <th>标签</th>
         <th>内容</th>
@@ -30,63 +29,76 @@ class ContentTable extends React.Component {
   }
   
   renderContent() {
-    const { showContent } = this.props;
+    // console.log('renderContent()');
+    const { showContent, updateContent, deleteContent } = this.props;
     let contents = this.state.content.retrieve();  
 
+    // console.log('=>', contents);
     if (contents) {
       return (
-        contents.map((e, i) => {          
-          // let content = showContent ? e.content : '******';
-          let content = e.content;
+        contents.map((e, i) => {
+          let dataArray = [e.id, e.title, e.tag, e.content];
 
           return <ContentRow 
-            data={[e.id, e.title, e.tag, content]} 
+            data={dataArray} 
 
-            update={(dataToUpdate) => {
-              let i = 0;
-              this.state.content.update({
-                id: dataToUpdate[i++],
-                title: dataToUpdate[i++],
-                tag: dataToUpdate[i++],
-                content: dataToUpdate[i++]
+            updateData={(dataToUpdate) => {
+              let index = 0;
+
+              updateContent({
+                id: dataToUpdate[index++],
+                title: dataToUpdate[index++],
+                tag: dataToUpdate[index++],
+                content: dataToUpdate[index++]
               });
             }} 
             
             deleteData={(dataToDelete) => {
               let contentObject = this.state.content;
 
-              contentObject.del({
+              deleteContent({
                 id: dataToDelete[0]
               });
               
               this.setState({
                 content: contentObject
               });
+            }} 
+
+            decryptData={(data) => {
+              let result = data.map((element) => element);              
+              console.log('decryptData', result);
+              return result;
+            }} 
+
+            showData={(data, index) => {
+              if (index == 3 && !showContent) {
+                return '******';
+              }
+
+              return data[index] ? data[index] : '-';
             }}
           />
         })
       )
     } else {
-      return (
-        <ContentRow data={[]}/>
-      )
+      return null;
     }
   }
 
   renderInput() {
+    // console.log('renderInput()');
+
     let contentObject = this.state.content;
-    const showInput = this.props.showInput;
+    const { showInput, createContent } = this.props;
 
     return (<ContentInput 
       show={showInput} 
-      create={(titleValue, tagValue, contentValue) => {
+      create={(param) => {
 
-        contentObject.create({
-          title: titleValue, 
-          tag: tagValue, 
-          content: contentValue 
-        }); 
+        createContent(param);
 
+        // to render 
         this.setState({
           content: contentObject
         })
@@ -98,7 +110,7 @@ class ContentTable extends React.Component {
     const { id } = this.props;
 
     return (
-      <table className="table table-hover"  id={id}>
+      <table className="table table-hover" id={id}>
         <thead>
           {this.renderTitle()}
         </thead>
@@ -115,7 +127,10 @@ ContentTable.propTypes = {
   id: React.PropTypes.string.isRequired,
   showInput: React.PropTypes.bool.isRequired,
   showContent: React.PropTypes.bool.isRequired,
-  content: React.PropTypes.object.isRequired
+  content: React.PropTypes.object.isRequired,
+  createContent: React.PropTypes.func.isRequired,
+  updateContent: React.PropTypes.func.isRequired,
+  deleteContent: React.PropTypes.func.isRequired
 };
 
 export default ContentTable;

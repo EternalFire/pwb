@@ -7,6 +7,7 @@ class ContentInput extends React.Component {
   }
 
   componentDidUpdate() {
+    // jQuery animation
     const { show } = this.props;
     const $node = $(this.refs['node']);
     if (show) {
@@ -20,18 +21,18 @@ class ContentInput extends React.Component {
     const { title, tag, content } = this.refs;
     const { create } = this.props;
 
-    create(
-      title.value.trim(), 
-      tag.value.trim(), 
-      content.value.trim()
-    );
+    create({
+      title: title.value.trim(), 
+      tag: tag.value.trim(), 
+      content: content.value.trim()
+    });
 
     title.value = "";
     tag.value = "";
     content.value = "";
   }
   
-  render() {
+render() {
     const { show } = this.props;
 
     if (show) {

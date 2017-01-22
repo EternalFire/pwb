@@ -6,9 +6,14 @@ import ContentTable from 'ContentTable'
 
   var IDSectionMain = document.getElementById('IDSectionMain');
   
-  const { content } = require('../module/pwb').modules
+  var pwb = require('../module/pwb');
+
+  const { content,data } = require('../module/pwb').modules
+
+  pwb.init();
 
   class View extends React.Component {
+
     constructor(props, context) {
       super(props, context);
 
@@ -30,6 +35,21 @@ import ContentTable from 'ContentTable'
       });
     }
 
+    createContent(param) {
+      content.create(param);
+      pwb.save();
+    }
+
+    updateContent(param) {
+      content.update(param);
+      pwb.save();
+    }
+
+    deleteContent(param) {
+      content.del(param);
+      pwb.save();
+    }
+
     render() {
       return (
         <div className="row">
@@ -43,6 +63,9 @@ import ContentTable from 'ContentTable'
               showInput={this.state.showInput} 
               showContent={this.state.showContent} 
               content={content}
+              createContent={this.createContent.bind(this)}
+              updateContent={this.updateContent.bind(this)}
+              deleteContent={this.deleteContent.bind(this)}
             />
           </div>
         </div>
@@ -54,4 +77,5 @@ import ContentTable from 'ContentTable'
     <View />, 
     IDSectionMain
   );
+
 }());
