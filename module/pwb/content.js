@@ -12,7 +12,10 @@ var
   create,
   retrieve,
   update,
-  del;
+  del,
+
+  clear
+  ;
 
 contentCache = [];
 
@@ -33,7 +36,12 @@ copyContent = (content) => {
 // param.tag string 标签
 // param.content string 内容
 create = (param) => {
-  param.id = wrapCreateID();
+  if (param.id) {
+    idUtil.used(param.id);
+  } else {
+    param.id = wrapCreateID();
+  }
+
   contentCache.push(param);    
   return param;
 };
@@ -119,13 +127,20 @@ del = (param) => {
   return false;
 };
 
+clear = () => {
+  contentCache.forEach((e, i) => {
+    contentCache[i] = null;
+  })
+  contentCache = [];
+};
 
 module.exports = {
   name: 'content',
   create: create,
   retrieve: retrieve,
   update: update,
-  del: del
+  del: del,
+  clear: clear
 };
 
 

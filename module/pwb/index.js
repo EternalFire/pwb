@@ -6,7 +6,32 @@ var
   data = require('./data'),
   dataio = require('./dataio'),
   passwd = require('./passwd'),
-  people = require('./people')
+  people = require('./people'),
+
+  init,
+  save,
+  load,
+  clear
+;
+
+init = function() {
+  load();
+};
+
+save = function() {
+  data.save(content.retrieve());
+};
+
+load = function() {
+  data.load().forEach((e) => {
+    content.create(e);
+  });
+};
+
+clear = function() {
+  data.clear();
+  content.clear();
+}
 
 module.exports = {
   name: 'pwb',
@@ -16,5 +41,9 @@ module.exports = {
     dataio: dataio,
     passwd: passwd,
     people: people
-  }
+  },
+  init: init,
+  save: save,
+  load: load,
+  clear: clear
 };

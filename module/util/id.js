@@ -7,6 +7,7 @@ var
 
   init,
   create,
+  used,
   randomNumber
   ;
 
@@ -34,8 +35,12 @@ var
   };
 
   randomNumber = () => {
-    // return Math.floor(Math.random() * (Number.MAX_VALUE % 1000000));
-    return id++;
+    return Math.floor(Math.random() * (Number.MAX_VALUE % 10000));
+    // return id++;
+  };
+
+  used = (index) => {
+    usedID[index] = true;
   };
 
   id = randomNumber();
@@ -43,5 +48,6 @@ var
 module.exports = {
   name: 'id',
   init: init,
-  create: create
+  create: create,
+  used: used
 };

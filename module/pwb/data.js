@@ -6,7 +6,8 @@ var
 
   init,
   save,
-  load
+  load,
+  clear
 ;
 
 init = () => {
@@ -20,13 +21,24 @@ save = (array) => {
 };
 
 load = () => {
-  var str = localStorage.getItem(dataKey);
-  return JSON.parse(str);
+  var array = [],
+    str = localStorage.getItem(dataKey)
+  ;
+
+  if (str) {
+    array = JSON.parse(str);
+  }
+  return array;
+};
+
+clear = () => {
+  localStorage.setItem(dataKey, '');
 };
 
 module.exports = {
   name: 'data',
   init: init,
   save: save,
-  load: load
+  load: load,
+  clear: clear
 };
