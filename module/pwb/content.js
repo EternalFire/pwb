@@ -36,6 +36,10 @@ copyContent = (content) => {
 // param.tag string 标签
 // param.content string 内容
 create = (param) => {
+  if (retrieve(param)) {
+    return false;
+  }
+
   if (param.id) {
     idUtil.used(param.id);
   } else {
@@ -64,7 +68,7 @@ retrieve = (param) => {
     contentCache.some((e) => {
       var ret = e.id === param.id;
       if (ret) {
-        result = e;
+        result = e; // exist
         return true;
       }
     });

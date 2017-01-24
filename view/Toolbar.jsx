@@ -13,9 +13,12 @@ class Toolbar extends React.Component {
       toggleAdd, 
       toggleShowContent, 
       toggleSetting, 
-      showSetting,
-      settingDialogID
+      modalDialogID,
+      toggleDownload,
+      toggleUpload
     } = this.props;
+
+    let dialogID = '#' + modalDialogID;
 
     return (
       <div className="panel panel-default toolbar">
@@ -36,18 +39,27 @@ class Toolbar extends React.Component {
               toggle={toggleSetting} 
               text="setting" 
               data-toggle="modal" 
-              data-target={"#"+settingDialogID} 
+              data-target={dialogID} 
               data-backdrop="static" 
-              data-keyboard="true" 
-              isOn={showSetting} 
+              isOn={false} 
             />
 
             <ToolbarItemToggle icon="glyphicon glyphicon-download" 
-              text="download"
+              text="download" 
+              toggle={toggleDownload} 
+              data-toggle="modal" 
+              data-target={dialogID} 
+              data-backdrop="static" 
+              isOn={false} 
             />
 
             <ToolbarItemToggle icon="glyphicon glyphicon-upload" 
-              text="upload"
+              text="upload" 
+              toggle={toggleUpload} 
+              data-toggle="modal" 
+              data-target={dialogID} 
+              data-backdrop="static" 
+              isOn={false}
             />
           </div>
 
@@ -63,8 +75,7 @@ class Toolbar extends React.Component {
 Toolbar.propTypes = {
   toggleAdd: React.PropTypes.func.isRequired,
   toggleShowContent: React.PropTypes.func.isRequired,
-  toggleSetting: React.PropTypes.func.isRequired,
-  showSetting: React.PropTypes.bool
+  toggleSetting: React.PropTypes.func.isRequired
 };
 
 export default Toolbar;

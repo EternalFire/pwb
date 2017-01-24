@@ -13,7 +13,7 @@ body {
 }
 
 .toolbar {
-  padding: 10px;
+  padding: 3px;
 }
 .toolbarLine {
   margin: 10px 0;
@@ -21,8 +21,6 @@ body {
 .toolbarLine > * {
   margin: 0 5px;
 }
-
-
 
 th,td {
   text-align: center;  
@@ -41,7 +39,7 @@ td input {
   width: 95%;
 }
 
-.test {
-  width: 200px;
-  height: 200px;
+.dataIOArea {
+  min-height: 300px;
+  max-width: 100%;
 }
