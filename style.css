@@ -15,9 +15,14 @@ body {
 .toolbar {
   padding: 10px;
 }
-.toolbar > * {
-  margin-right: 10px;
+.toolbarLine {
+  margin: 10px 0;
 }
+.toolbarLine > * {
+  margin: 0 5px;
+}
+
+
 
 th,td {
   text-align: center;  
@@ -34,4 +39,9 @@ th,td {
 
 td input {
   width: 95%;
+}
+
+.test {
+  width: 200px;
+  height: 200px;
 }

@@ -9,8 +9,8 @@ class ToolbarItemToggle extends React.Component {
   }
 
   componentDidMount() {
-    console.log('ToolbarItemToggle', this.props);
 
+    // convert DOMStringMap
     Object.keys(this.props)
       .filter((key) => {
         return key.indexOf('data-') === 0;
@@ -37,19 +37,25 @@ class ToolbarItemToggle extends React.Component {
       isOn: isOn
     });
 
-    this.props.toggle(isOn);
+    this.props.toggle ? this.props.toggle(isOn) : null;
+  }
 
-    $(this.refs['btn']).toggleClass('active');
+  toggleClass(isOn) {
+    $(this.refs['btn']).toggleClass('active', isOn ? true : false);    
   }
 
   render() {
-    const { icon, text } = this.props;
+    const { icon, text } = this.props;    
+
+    if (typeof this.props.isOn == 'boolean') {
+      this.state.isOn = this.props.isOn;
+    }
+    this.toggleClass(this.state.isOn);
 
     return (
       <button className="btn btn-default btn-lg" 
         onClick={() => this.handleClick()} 
         ref="btn" 
-
       >
         <span className={icon}></span> {text}
       </button>      

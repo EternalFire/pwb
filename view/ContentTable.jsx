@@ -81,9 +81,9 @@ class ContentTable extends React.Component {
           />
         })
       )
-    } else {
-      return null;
-    }
+    } 
+    
+    return null;
   }
 
   renderInput() {

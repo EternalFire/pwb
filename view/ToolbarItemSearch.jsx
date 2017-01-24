@@ -30,7 +30,7 @@ class ToolbarItemSearch extends React.Component {
   render() {
 
     return (
-      <span>
+      <div>
         <span className="glyphicon glyphicon-search">
         </span>
         <input type="text" className="searchInput"
@@ -39,7 +39,7 @@ class ToolbarItemSearch extends React.Component {
           onKeyDown={(e) => this.handleKeyDown(e)} 
           onBlur={(e)=> this.handleBlur(e)}
         />
-      </span>
+      </div>
     )
   }
 }

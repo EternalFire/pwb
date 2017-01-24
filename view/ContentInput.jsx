@@ -32,7 +32,7 @@ class ContentInput extends React.Component {
     content.value = "";
   }
   
-render() {
+  render() {
     const { show } = this.props;
 
     if (show) {

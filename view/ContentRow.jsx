@@ -94,7 +94,7 @@ class ContentRow extends React.Component {
   }
 
   render() {
-    console.log('Row Update -> render');
+    // console.log('Row Update -> render');
 
     const { clicked } = this.state;
     const { data, showData } = this.props;
