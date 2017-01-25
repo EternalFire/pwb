@@ -22,6 +22,9 @@ class Toolbar extends React.Component {
 
     return (
       <div className="panel panel-default toolbar">
+        <div className="panel-heading">
+          <h3 class="panel-title">Toolbar</h3>
+        </div>
         <div className="panel-body">
 
           <div className="input-group toolbarLine">

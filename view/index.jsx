@@ -25,7 +25,8 @@ import PopupDialog from 'PopupDialog'
           id: 'myModal',
           type: '',
           data: ''
-        }
+        },
+        contents: content.retrieve()
       };
     }
     
@@ -82,18 +83,39 @@ import PopupDialog from 'PopupDialog'
       var result = content.create(param);
       if (result) {
         pwb.save();
+
+        this.notifyContentChanged();
+      }
+    }
+    createContentWithString(str) {      
+      let array = dataio.input(str);
+      if (array && Array.isArray(array)) {
+        array.forEach((e) => {
+          content.create(e);
+        });
+        pwb.save();
+
+        this.notifyContentChanged();
       }
     }
     updateContent(param) {
       content.update(param);
       pwb.save();
+
+      this.notifyContentChanged();
     }
     deleteContent(param) {
       content.del(param);
       pwb.save();
-    }
 
+      this.notifyContentChanged();
+    }
+    notifyContentChanged() {
+      this.setState({contents: content.retrieve()})
+    }
+    
     render() {
+      // console.log('render index');
       const {showInput, showContent, popupModel} = this.state
 
       return (
@@ -112,10 +134,10 @@ import PopupDialog from 'PopupDialog'
             <ContentTable id="ContentTable" 
               showInput={showInput} 
               showContent={showContent} 
-              content={content}
               createContent={this.createContent.bind(this)}
               updateContent={this.updateContent.bind(this)}
-              deleteContent={this.deleteContent.bind(this)}
+              deleteContent={this.deleteContent.bind(this)} 
+              contents={this.state.contents} 
             />
 
             <PopupDialog id={popupModel.id} 
@@ -124,6 +146,7 @@ import PopupDialog from 'PopupDialog'
               dialogType={popupModel.type} 
               modelData={popupModel.data} 
               isInput={popupModel.isInput}
+              onOKUpload={this.createContentWithString.bind(this)} 
             />
 
           </div>

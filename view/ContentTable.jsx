@@ -7,9 +7,9 @@ class ContentTable extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {
-      content: this.props.content
-    };
+    // this.state = {
+      
+    // };
   }
 
   componentDidUpdate() {}
@@ -28,12 +28,10 @@ class ContentTable extends React.Component {
     )
   }
   
-  renderContent() {
-    // console.log('renderContent()');
-    const { showContent, updateContent, deleteContent } = this.props;
-    let contents = this.state.content.retrieve();  
-
-    // console.log('=>', contents);
+  renderContents() {
+    // console.log('renderContents()');
+    const { showContent, updateContent, deleteContent, contents } = this.props;
+    
     if (contents) {
       return (
         contents.map((e, i) => {
@@ -54,20 +52,14 @@ class ContentTable extends React.Component {
             }} 
             
             deleteData={(dataToDelete) => {
-              let contentObject = this.state.content;
-
               deleteContent({
                 id: dataToDelete[0]
-              });
-              
-              this.setState({
-                content: contentObject
-              });
+              });              
             }} 
 
             decryptData={(data) => {
               let result = data.map((element) => element);              
-              console.log('decryptData', result);
+              // console.log('decryptData', result);
               return result;
             }} 
 
@@ -88,37 +80,35 @@ class ContentTable extends React.Component {
 
   renderInput() {
     // console.log('renderInput()');
-
-    let contentObject = this.state.content;
     const { showInput, createContent } = this.props;
 
     return (<ContentInput 
       show={showInput} 
-      create={(param) => {
-
-        createContent(param);
-
-        // to render 
-        this.setState({
-          content: contentObject
-        })
-      }}
+      create={createContent}
     />)
   }
 
   render() {
+    // console.log('render ContentTable');
     const { id } = this.props;
 
     return (
-      <table className="table table-hover" id={id}>
-        <thead>
-          {this.renderTitle()}
-        </thead>
-        <tbody>
-          {this.renderInput()}
-          {this.renderContent()}
-        </tbody>
-      </table>
+      <div className="panel panel-info">
+        <div className="panel-heading">
+          <h3 class="panel-title">Data</h3>
+        </div>
+        <div className="panel-body">      
+          <table className="table table-hover" id={id}>
+            <thead>
+              {this.renderTitle()}
+            </thead>
+            <tbody>
+              {this.renderInput()}
+              {this.renderContents()}
+            </tbody>
+          </table>
+        </div>
+      </div>
     )
   }
 }
@@ -127,7 +117,6 @@ ContentTable.propTypes = {
   id: React.PropTypes.string.isRequired,
   showInput: React.PropTypes.bool.isRequired,
   showContent: React.PropTypes.bool.isRequired,
-  content: React.PropTypes.object.isRequired,
   createContent: React.PropTypes.func.isRequired,
   updateContent: React.PropTypes.func.isRequired,
   deleteContent: React.PropTypes.func.isRequired

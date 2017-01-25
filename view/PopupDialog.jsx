@@ -11,12 +11,24 @@ class PopupDialog extends React.Component {
         title: 'Setting',
         data: '',
         render: this.renderSetting.bind(this),
-
+        onOK: () => {},
+        onClose: () => {}
       },
       io: {
         title: 'Download & Upload',
         data: '',
-        render: this.renderIO.bind(this)
+        render: this.renderIO.bind(this),
+        onOK: () => {
+          const { isInput, onOKUpload } = this.props;
+          if (isInput) {
+            onOKUpload ? onOKUpload(this.state.io.data) : null;
+          }
+
+          this.state.io.data = '';
+        },
+        onClose: () => {
+          this.state.io.data = '';
+        }
       }
     };
   }
@@ -26,12 +38,12 @@ class PopupDialog extends React.Component {
   }
 
   onClose() {
-    this.state.io.data = '';
-    this.state.io.isInput = false;
+    const { dialogType } = this.props;
+    this.getModel(dialogType).onClose();
   }  
   onOK() {
-    this.state.io.data = '';  
-    this.state.io.isInput = false;
+    const { dialogType } = this.props;
+    this.getModel(dialogType).onOK();
   }
   renderSetting() {
     return (
@@ -92,7 +104,12 @@ class PopupDialog extends React.Component {
   }
 }
 
-// PopupDialog.propTypes = {
-// };
+PopupDialog.propTypes = {
+  id: React.PropTypes.string.isRequired,
+  dialogType: React.PropTypes.string.isRequired,
+  // modelData
+  isInput: React.PropTypes.bool.isRequired,
+  onOKUpload: React.PropTypes.func.isRequired
+};
 
 export default PopupDialog;

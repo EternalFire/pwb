@@ -7,7 +7,11 @@ var
 ; 
 
 input = function(str) {
-  return JSON.parse(str);
+  try {
+    return JSON.parse(str);
+  } catch(e) {
+    return false;
+  }
 };
 
 output = function(array) {
