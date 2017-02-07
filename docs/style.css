@@ -1,0 +1,45 @@
+
+body {
+  font-size: 24px;
+  min-width: 950px;
+}
+
+#IDSectionMain {
+  margin: 0 auto;
+}
+
+.searchInput {
+  margin-left: 2px
+}
+
+.toolbar {
+  padding: 3px;
+}
+.toolbarLine {
+  margin: 10px 0;
+}
+.toolbarLine > * {
+  margin: 0 5px;
+}
+
+th,td {
+  text-align: center;  
+  width: 18%;
+}
+
+.ghost {
+  opacity: 0.2;
+  transition: all 0.4s;
+}
+.ghost:hover {
+  opacity: 1.0;
+}
+
+td input {
+  width: 95%;
+}
+
+.dataIOArea {
+  min-height: 300px;
+  max-width: 100%;
+}
