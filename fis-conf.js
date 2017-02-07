@@ -15,10 +15,6 @@ fis.match('{/module/**.js,/view/*.jsx}', {
   isMod: true
 });
 
-fis.match('/test/**', {
-  release: false
-});
-
 // fis.match('*.{js,jsx}', {
 //   optimizer: fis.plugin('uglify-js')
 // });
@@ -32,6 +28,13 @@ fis.match('::package', {
   })
 });
 
-fis.media('publish').match('*', {
-  release: '/pwb/$0'
-});
+fis.media('publish')
+  .match('*', {
+    release: '/pwb/$0'
+  })
+  .match('{/test/**,package.json}', {
+    release: false
+  })
+  .match('*.{js,jsx}', {
+    optimizer: fis.plugin('uglify-js')
+  });
