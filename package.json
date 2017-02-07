@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "page": "rm -rf docs;fis3 release publish -d ./.tempDir;mv .tempDir/pwb docs;rm -r .tempDir"
   },
   "author": "",
   "license": "ISC",
