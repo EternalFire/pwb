@@ -31,3 +31,7 @@ fis.match('::package', {
     useInlineMap: true // 资源映射表内嵌
   })
 });
+
+fis.media('publish').match('*', {
+  release: '/pwb/$0'
+});
